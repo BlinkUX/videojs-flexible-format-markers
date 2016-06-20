@@ -5,7 +5,7 @@
   "version": "0.5.1",
   "main": [
     "dist/videojs-flexible-format-markers.js",
-    "dist/videojs.markers.css"
+    "dist/videojs.flexible-format-markers.css"
   ],
   "ignore": [
       "src",
