@@ -1,7 +1,7 @@
 {
   "name": "videojs-flexible-format-markers",
   "description": "flexible format video marker breaks plugin for video.js",
-  "version" : "0.5.0",
+  "version" : "0.5.1",
   "peerDependencies": {
     "video-js": "0.7.0",
     "jQuery": "<1.12.0"
