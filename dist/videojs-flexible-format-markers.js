@@ -1,4 +1,4 @@
-/*! videojs-flexible-format-markers - v0.5.0 - 2016-06-20
+/*! videojs-flexible-format-markers - v0.5.1 - 2016-06-20
 * Copyright (c) 2016 ; Licensed  */
 'use strict'; 
 
