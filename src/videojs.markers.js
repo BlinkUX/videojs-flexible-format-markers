@@ -1,21 +1,43 @@
-/*! videojs-markers !*/
 'use strict'; 
 
 (function($, videojs, undefined) {
    //default setting
-   var defaultSetting = {
+    var  setting      = {}, 
+         markersMap   = {},
+         markersList  = [], // list of markers sorted by time
+         videoWrapper = "",
+         currentMarkerIndex  = -1, 
+         player       = "",
+         markerTip    = null,
+         breakOverlay = null,
+         overlayIndex = -1;
+
+   var defaultSetting = { 
+      format : {
+         setTime : function(object, time){
+            object.time = time;
+         },
+         time : function(object){
+            return object.time;
+         },
+         setText : function(object, text){
+            object.text = text;
+         },
+         text : function(object){
+            return object.text;
+         }
+      },
       markerStyle: {
-         'width':'7px',
-         'border-radius': '30%',
-         'background-color': 'red'
+         'width':'4px',
+         'background-color': '#34b150'
       },
       markerTip: {
          display: true,
          text: function(marker) {
-            return "Break: "+ marker.text;
+            return "Break: "+ setting.format.text(marker);
          },
          time: function(marker) {
-            return marker.time;
+            return setting.format.time(marker);
          }
       },
       breakOverlay:{
@@ -29,7 +51,7 @@
             'height': '20%',
             'background-color': 'rgba(0,0,0,0.7)',
             'color': 'white',
-            'font-size': '17px'
+            'font-size': '16px'
          }
       },
       onMarkerClick: function(marker) {},
@@ -52,16 +74,9 @@
       /**
        * register the markers plugin (dependent on jquery)
        */
-   
-      var setting      = $.extend(true, {}, defaultSetting, options),
-          markersMap   = {},
-          markersList  = [], // list of markers sorted by time
-          videoWrapper = $(this.el()),
-          currentMarkerIndex  = -1, 
-          player       = this,
-          markerTip    = null,
-          breakOverlay = null,
-          overlayIndex = -1;
+      setting      = $.extend(true, {}, defaultSetting, options);
+      videoWrapper = $(this.el());
+      player       = this;
           
       function sortMarkersList() {
          // sort the list by time in asc order
@@ -93,7 +108,7 @@
       function createMarkerDiv(marker, duration) {
          var markerDiv = $("<div class='vjs-marker'></div>")
          markerDiv.css(setting.markerStyle)
-            .css({"margin-left" : -parseFloat(markerDiv.css("width"))/2 + 'px', 
+            .css({"margin-left" : -parseFloat(markerDiv.css("width")) + 'px', 
                "left" : getPosition(marker) + '%'})
             .attr("data-marker-key", marker.key)
             .attr("data-marker-time", setting.markerTip.time(marker));
@@ -171,7 +186,6 @@
          // sort again
          sortMarkersList();
       }
-      
       
       // attach hover event handler
       function registerMarkerTipHandler(markerDiv) {
@@ -321,6 +335,9 @@
          getMarkers: function() {
            return markersList;
          },
+         init : function(){
+            initialize();
+         },
          next : function() {
             // go to the next marker from current timestamp
             var currentTime = player.currentTime();
@@ -375,7 +392,7 @@
             markerTip.remove();
             player.off("timeupdate", updateBreakOverlay);
             delete player.markers;
-         },
+         }
       };
    }
 

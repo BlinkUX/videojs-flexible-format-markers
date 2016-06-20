@@ -1,10 +1,10 @@
 {
-  "name": "videojs-marker",
+  "name": "videojs-flexible-format-markers",
   "description": "video marker breaks plugin for video.js",
-  "homepage": "https://github.com/spchuang/videojs-markers",
+  "homepage": "https://github.com/BlinkUX/videojs-markers",
   "version": "0.5.0",
   "main": [
-    "dist/videojs-markers.js",
+    "dist/videojs-flexible-format-markers.js",
     "dist/videojs.markers.css"
   ],
   "ignore": [
